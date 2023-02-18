@@ -35,7 +35,7 @@ class _ChatPageViewState extends State<ChatPageView> {
       const MaterialBanner(
         backgroundColor: Colors.purpleAccent,
         content: Text(
-          'Please can\'t send an empty message',
+          'Please  can\'t send an empty message',
           style: TextStyle(
             color: Colors.white,
           ),
