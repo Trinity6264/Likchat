@@ -1,21 +1,34 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:likchat/logic/bloc/internet/internet_bloc.dart';
 import 'package:likchat/screens/splash_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp(
+    connectivity: Connectivity(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Connectivity connectivity;
+  const MyApp({super.key, required this.connectivity});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LikChat',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => InternetBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'LikChat',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: const SplashView(),
       ),
-      home: const SplashView(),
     );
   }
 }

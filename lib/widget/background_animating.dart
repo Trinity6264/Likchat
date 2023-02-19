@@ -12,16 +12,16 @@ class AnimatingBackground extends StatefulWidget {
 class _AnimatingBackgroundState extends State<AnimatingBackground>
     with TickerProviderStateMixin {
   List<Color> colorList = const [
-    Color(0xff171B70),
-    Color(0xFF0E147E),
-    Color(0xFF2730E2),
-    Color(0xFF0D1046),
-    Color(0xFF01042C),
+    Color.fromARGB(230, 23, 27, 112),
+    Color.fromARGB(230, 14, 20, 126),
+    Color.fromARGB(230, 39, 48, 226),
+    Color.fromARGB(230, 13, 16, 70),
+    Color.fromARGB(230, 1, 4, 44),
   ];
 
   int index = 0;
-  Color bottomColor = const Color(0xFF092646);
-  Color topColor = const Color(0xFF410D75);
+  Color bottomColor = const Color.fromARGB(230, 9, 39, 70);
+  Color topColor = const Color.fromARGB(230, 65, 13, 117);
   Alignment begin = Alignment.bottomCenter;
   Alignment end = Alignment.topCenter;
 
