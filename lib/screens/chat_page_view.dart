@@ -29,6 +29,9 @@ class _ChatPageViewState extends State<ChatPageView> {
       keepScrollOffset: true,
       initialScrollOffset: 0,
     );
+    scrollController.addListener(() {
+      setState(() {});
+    });
     subscription = Connectivity().onConnectivityChanged.listen(
       (event) {
         if (event == ConnectivityResult.mobile ||
@@ -142,21 +145,31 @@ class _ChatPageViewState extends State<ChatPageView> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          if (controller.text == '') {
-                            showBanner(context);
-                            return;
-                          }
-                          log(controller.text);
-                          fNode.unfocus();
-                          controller.clear();
-                          sendChat();
+                      BlocBuilder<InternetBloc, InternetState>(
+                        builder: (context, state) {
+                          return IconButton(
+                            onPressed: () {
+                              if (state is InternetDisConnected) return;
+                              if (controller.text == '') {
+                                showBanner(context);
+                                return;
+                              }
+                              log(controller.text);
+                              fNode.unfocus();
+                              controller.clear();
+                              sendChat();
+                            },
+                            icon: state is InternetDisConnected
+                                ? const Icon(
+                                    Icons.do_not_disturb_alt_outlined,
+                                    color: Colors.white24,
+                                  )
+                                : const Icon(
+                                    Icons.send_rounded,
+                                    color: Colors.white,
+                                  ),
+                          );
                         },
-                        icon: const Icon(
-                          Icons.send_rounded,
-                          color: Colors.white,
-                        ),
                       ),
                     ],
                   ),
