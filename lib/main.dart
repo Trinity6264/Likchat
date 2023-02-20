@@ -1,26 +1,29 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:likchat/logic/bloc/chat/chat_bloc.dart';
 import 'package:likchat/logic/bloc/internet/internet_bloc.dart';
+import 'package:likchat/repo/chat_repo.dart';
 import 'package:likchat/screens/splash_view.dart';
 
 void main() {
-  runApp(MyApp(
-    connectivity: Connectivity(),
+  runApp( MyApp(
+    chatRepo: ChatRepo(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final Connectivity connectivity;
-  const MyApp({super.key, required this.connectivity});
+  final ChatRepo chatRepo;
+  const MyApp({
+    super.key,
+    required this.chatRepo,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => InternetBloc(),
-        ),
+        BlocProvider<InternetBloc>(create: (context) => InternetBloc()),
+        BlocProvider<ChatBloc>(create: (context) => ChatBloc(chatRepo: chatRepo)),
       ],
       child: MaterialApp(
         title: 'LikChat',

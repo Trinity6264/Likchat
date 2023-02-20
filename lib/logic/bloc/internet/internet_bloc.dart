@@ -17,7 +17,7 @@ class InternetBloc extends Bloc<InternetEvent, InternetState> {
     );
     on<InternetDisConnectedEvent>(
       (event, emit) => emit(
-        const InternetDisConnected('message'),
+        const InternetDisConnected('Internet connection is disconnected'),
       ),
     );
   }
