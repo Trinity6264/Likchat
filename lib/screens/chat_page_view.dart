@@ -9,6 +9,7 @@ import 'package:likchat/logic/cubit/chat/chat_cubit.dart';
 import 'package:likchat/utils/utils.dart';
 import 'package:likchat/widget/bot_loading_chat.dart';
 import 'package:likchat/widget/chat_card.dart';
+import 'package:likchat/widget/try_again.dart';
 
 class ChatPageView extends StatefulWidget {
   const ChatPageView({super.key});
@@ -125,7 +126,10 @@ class _ChatPageViewState extends State<ChatPageView> {
                               if (state is ChatLoading) {
                                 return const BotLoadingChat();
                               }
-                              return const SizedBox();
+                              if (state is ChatError) {
+                                return const TryAgainWidget();
+                              }
+                              return const TryAgainWidget();
                             },
                           )
                         ],
