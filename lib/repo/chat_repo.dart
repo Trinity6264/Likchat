@@ -9,7 +9,6 @@ class ChatRepo {
 
   Future<ChatModel?> sendChat(String prompt) async {
     final res = await apiService.sendRequest(prompt);
-    log(res.body);
     if (res.statusCode != 200) throw Exception({});
     final resp = jsonDecode(res.body);
     final id = resp['id'];

@@ -25,13 +25,12 @@ class ChatCubit extends Cubit<ChatState> {
       emit(ChatResponded(listOfChats: listOfChat));
       emit(ChatLoading());
       final resp = await chatRepo.sendChat(txt);
-
       if (resp != null) {
         listOfChat.add(resp);
         emit(ChatResponded(listOfChats: listOfChat));
       }
     } catch (e) {
-      log(e.toString());
+      emit(const ChatError());
     }
   }
 }

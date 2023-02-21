@@ -25,6 +25,7 @@ class _ChatPageViewState extends State<ChatPageView> {
   late final StreamSubscription subscription;
   late final FocusNode fNode;
   bool isLoading = false;
+  String prompt = '';
 
   @override
   void initState() {
@@ -126,7 +127,9 @@ class _ChatPageViewState extends State<ChatPageView> {
                                 return const BotLoadingChat();
                               }
                               if (state is ChatError) {
-                                return const TryAgainWidget();
+                                return TryAgainWidget(onTap: () {
+                                  chatModels.getChat(txt: prompt);
+                                });
                               }
                               return const SizedBox();
                             },
@@ -184,7 +187,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                 return;
                               }
                               chatModels.getChat(txt: controller.text);
-                              log(controller.text);
+                              prompt = controller.text;
                               fNode.unfocus();
                               controller.clear();
                             },
