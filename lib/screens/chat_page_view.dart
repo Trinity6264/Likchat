@@ -11,6 +11,7 @@ import 'package:likchat/utils/utils.dart';
 import 'package:likchat/widget/bot_loading_chat.dart';
 import 'package:likchat/widget/chat_card.dart';
 import 'package:likchat/widget/try_again.dart';
+import 'dart:io' show Platform;
 
 class ChatPageView extends StatefulWidget {
   const ChatPageView({super.key});
@@ -62,6 +63,7 @@ class _ChatPageViewState extends State<ChatPageView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     final chatModels = context.read<ChatCubit>();
 
     return Scaffold(
@@ -69,7 +71,9 @@ class _ChatPageViewState extends State<ChatPageView> {
       appBar: AppBar(
         title: Image.asset(
           'assets/logo.png',
-          width: size.width * .1,
+          width: Platform.isLinux || Platform.isLinux
+              ? size.width * .035
+              : size.width * .1,
           // fit: BoxFit.cover,
         ),
         automaticallyImplyLeading: false,
@@ -80,7 +84,9 @@ class _ChatPageViewState extends State<ChatPageView> {
               'Infotess',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: size.width * .045,
+                fontSize: Platform.isLinux || Platform.isLinux
+                    ? size.width * .02
+                    : size.width * .045,
               ),
             ),
           ),
