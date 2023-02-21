@@ -52,3 +52,24 @@ void showInternetBanner(BuildContext _, String mes) {
 void closeInternetBanner(BuildContext _) {
   ScaffoldMessenger.of(_).clearMaterialBanners();
 }
+
+// error banner
+void showSnackBar(BuildContext _) {
+  ScaffoldMessenger.of(_).showSnackBar(
+    const SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        'Text copied to clipboard',
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    ),
+  );
+  Future.delayed(
+    const Duration(seconds: 5),
+    () {
+      ScaffoldMessenger.of(_).clearSnackBars();
+    },
+  );
+}

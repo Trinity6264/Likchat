@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:likchat/logic/bloc/internet/internet_bloc.dart';
 import 'package:likchat/logic/cubit/chat/chat_cubit.dart';
@@ -53,18 +54,8 @@ class _ChatPageViewState extends State<ChatPageView> {
     super.initState();
   }
 
-  Future<void> sendChat() async {
-    setState(() {
-      isLoading = true;
-    });
-    await Future.delayed(
-      const Duration(seconds: 5),
-      () {
-        setState(() {
-          isLoading = false;
-        });
-      },
-    );
+  Future<void> copyToClipBoard(String txt) async {
+    Clipboard.setData(ClipboardData(text: txt));
   }
 
   @override
@@ -114,7 +105,15 @@ class _ChatPageViewState extends State<ChatPageView> {
                               if (chatModels.listOfChat.isNotEmpty) {
                                 return Column(
                                   children: chatModels.listOfChat
-                                      .map((e) => ChatCard(chatModel: e))
+                                      .map(
+                                        (e) => ChatCard(
+                                          chatModel: e,
+                                          onLongTap: () {
+                                            copyToClipBoard(e.content ?? '-');
+                                            showSnackBar(context);
+                                          },
+                                        ),
+                                      )
                                       .toList(),
                                 );
                               }
@@ -129,7 +128,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                               if (state is ChatError) {
                                 return const TryAgainWidget();
                               }
-                              return const TryAgainWidget();
+                              return const SizedBox();
                             },
                           )
                         ],
@@ -188,7 +187,6 @@ class _ChatPageViewState extends State<ChatPageView> {
                               log(controller.text);
                               fNode.unfocus();
                               controller.clear();
-                              sendChat();
                             },
                             icon: state is InternetDisConnected
                                 ? const Icon(

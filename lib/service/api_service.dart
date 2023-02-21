@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class ApiService {
   static const baseUrl = 'https://api.openai.com/v1/completions';
+  final token = dotenv.env['API_KEY'];
 
   Future<http.Response> sendRequest(String prompt) async {
     final resp = await http.post(
@@ -10,7 +13,7 @@ class ApiService {
       headers: {
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer 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',
+            'Bearer $token',
       },
       body: json.encode(
         {
