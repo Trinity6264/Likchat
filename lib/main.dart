@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:likchat/logic/bloc/chat/chat_bloc.dart';
 import 'package:likchat/logic/bloc/internet/internet_bloc.dart';
+import 'package:likchat/logic/cubit/chat/chat_cubit.dart';
 import 'package:likchat/repo/chat_repo.dart';
 import 'package:likchat/screens/splash_view.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<InternetBloc>(create: (context) => InternetBloc()),
-        BlocProvider<ChatBloc>(create: (context) => ChatBloc(chatRepo: chatRepo)),
+        BlocProvider<ChatCubit>(create: (context) => ChatCubit(chatRepo: chatRepo)),
       ],
       child: MaterialApp(
         title: 'LikChat',

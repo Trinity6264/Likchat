@@ -10,10 +10,14 @@ class ApiService {
       headers: {
         'Content-Type': 'application/json',
         'Authorization':
-            'Bearer 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',
+            'Bearer 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',
       },
       body: json.encode(
-        {"model": "text-davinci-003", "prompt": prompt, "max_tokens": 600},
+        {
+          "model": "text-davinci-003",
+          "prompt": prompt,
+          "max_tokens": 600,
+        },
       ),
     );
     return resp;

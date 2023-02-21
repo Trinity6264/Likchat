@@ -9,9 +9,17 @@ class ChatRepo {
 
   Future<ChatModel?> sendChat(String prompt) async {
     final res = await apiService.sendRequest(prompt);
-    if (res.statusCode != 200) throw Exception();
+    log(res.body);
+    if (res.statusCode != 200) throw Exception({});
     final resp = jsonDecode(res.body);
-    log(resp);
-    return null;
+    final id = resp['id'];
+    final content = resp['choices'][0]['text'];
+    final chatM = ChatModel(
+      id: id,
+      content: content,
+      dateTime: DateTime.now(),
+      user: User.bot,
+    );
+    return chatM;
   }
 }

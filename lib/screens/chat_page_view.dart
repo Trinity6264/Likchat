@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:likchat/logic/bloc/chat/chat_bloc.dart';
 import 'package:likchat/logic/bloc/internet/internet_bloc.dart';
+import 'package:likchat/logic/cubit/chat/chat_cubit.dart';
 import 'package:likchat/utils/utils.dart';
 import 'package:likchat/widget/bot_loading_chat.dart';
 import 'package:likchat/widget/chat_card.dart';
@@ -69,7 +69,7 @@ class _ChatPageViewState extends State<ChatPageView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final chatModels = context.read<ChatBloc>();
+    final chatModels = context.read<ChatCubit>();
 
     return Scaffold(
       backgroundColor: Colors.white10,
@@ -100,20 +100,19 @@ class _ChatPageViewState extends State<ChatPageView> {
                           parent: BouncingScrollPhysics()),
                       child: Column(
                         children: [
-                          BlocBuilder<ChatBloc, ChatState>(
+                          BlocBuilder<ChatCubit, ChatState>(
                             builder: (context, state) {
                               if (state is ChatInitial &&
-                                  chatModels.models.isEmpty) {
+                                  chatModels.listOfChat.isEmpty) {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [Text('No Text Found')],
                                 );
                               }
-                              if (state is ChatBotResponse &&
-                                  chatModels.models.isNotEmpty) {
+                              if (chatModels.listOfChat.isNotEmpty) {
                                 return Column(
-                                  children: chatModels.models
+                                  children: chatModels.listOfChat
                                       .map((e) => ChatCard(chatModel: e))
                                       .toList(),
                                 );
@@ -121,9 +120,9 @@ class _ChatPageViewState extends State<ChatPageView> {
                               return const SizedBox();
                             },
                           ),
-                          BlocBuilder<ChatBloc, ChatState>(
+                          BlocBuilder<ChatCubit, ChatState>(
                             builder: (context, state) {
-                              if (state is ChatBotResponding) {
+                              if (state is ChatLoading) {
                                 return const BotLoadingChat();
                               }
                               return const SizedBox();
@@ -181,7 +180,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                 showBanner(context);
                                 return;
                               }
-                              await chatModels.getPrompt();
+                              chatModels.getChat(txt: controller.text);
                               log(controller.text);
                               fNode.unfocus();
                               controller.clear();

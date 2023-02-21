@@ -1,7 +1,7 @@
 enum User { bot, human }
 
 class ChatModel {
-  int? id;
+  String? id;
   String? content;
   DateTime? dateTime;
   User? user;
