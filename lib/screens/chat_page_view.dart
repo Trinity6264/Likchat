@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +81,12 @@ class _ChatPageViewState extends State<ChatPageView> {
         },
         child: Stack(
           children: [
+            Image.asset(
+              'assets/bg.jpg',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
             Column(
               children: [
                 Expanded(
@@ -97,11 +103,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                             builder: (context, state) {
                               if (state is ChatInitial &&
                                   chatModels.listOfChat.isEmpty) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [Text('No Text Found')],
-                                );
+                                return const SizedBox.shrink();
                               }
                               if (chatModels.listOfChat.isNotEmpty) {
                                 return Column(
@@ -164,7 +166,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                             border: InputBorder.none,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 10),
-                            hintText: 'Ask me something?',
+                            hintText: 'Ask me something...',
                             hintStyle: TextStyle(
                               color: Colors.white60,
                             ),

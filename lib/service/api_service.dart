@@ -7,7 +7,10 @@ class ApiService {
   static const baseUrl = 'https://api.openai.com/v1/completions';
   final token = dotenv.env['API_KEY'];
 
+
+
   Future<http.Response> sendRequest(String prompt) async {
+    
     final resp = await http.post(
       Uri.parse(baseUrl),
       headers: {
@@ -17,12 +20,15 @@ class ApiService {
       },
       body: json.encode(
         {
-          "model": "text-davinci-003",
-          "prompt": prompt,
-          "max_tokens": 600,
+          'model': 'text-davinci-003',
+          'prompt': prompt,
+          'max_tokens': 600,
         },
       ),
-    );
+    ).timeout(const Duration(seconds: 30));
+
+    
+    
     return resp;
   }
 }
