@@ -25,7 +25,7 @@ class ApiService {
           'max_tokens': 600,
         },
       ),
-    ).timeout(const Duration(seconds: 30));
+    ).timeout(const Duration(seconds: 30),);
 
     
     
