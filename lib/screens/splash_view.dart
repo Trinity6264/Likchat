@@ -32,9 +32,10 @@ class _SplashViewState extends State<SplashView> {
       body: Stack(
         children: [
           Image.asset(
-            'assets/pic.jpg',
+            'assets/logo.png',
             width: double.infinity,
             height: double.infinity,
+            fit: BoxFit.cover,
           ),
           const AnimatingBackground(),
           Align(
@@ -45,14 +46,14 @@ class _SplashViewState extends State<SplashView> {
               children: [
                 const Spacer(),
                 Text(
-                  'LIKCHAT',
+                  'ASK INFOTESS',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: size.width * .18,
+                    fontSize: size.width * .12,
                   ),
                 ),
                 Text(
-                  'Make\'s life easy',
+                  'Powered by infotess 23/24',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: size.width * .04,

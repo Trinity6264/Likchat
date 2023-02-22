@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:ui';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -67,9 +67,26 @@ class _ChatPageViewState extends State<ChatPageView> {
     return Scaffold(
       backgroundColor: Colors.white10,
       appBar: AppBar(
-        title: const Text(
-          'LIKCHAT',
+        title: Image.asset(
+          'assets/logo.png',
+          width: size.width * .1,
+          // fit: BoxFit.cover,
         ),
+        automaticallyImplyLeading: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 18, right: 10),
+            child: Text(
+              'Infotess',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: size.width * .045,
+              ),
+            ),
+          ),
+          const Icon(Icons.help_outline_outlined, color: Colors.white),
+          const SizedBox(width: 10),
+        ],
       ),
       body: BlocListener<InternetBloc, InternetState>(
         listener: (context, state) {
@@ -81,11 +98,18 @@ class _ChatPageViewState extends State<ChatPageView> {
         },
         child: Stack(
           children: [
-            Image.asset(
-              'assets/bg.jpg',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
+            ImageFiltered(
+              imageFilter: ImageFilter.blur(
+                sigmaX: 7,
+                sigmaY: 7,
+                tileMode: TileMode.clamp,
+              ),
+              child: Image.asset(
+                'assets/logo.png',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
             Column(
               children: [
