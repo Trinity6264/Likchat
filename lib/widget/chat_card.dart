@@ -30,6 +30,7 @@ class ChatCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               constraints: BoxConstraints(
                 maxWidth: size.width * .8,
+                
               ),
               decoration: BoxDecoration(
                 color: chatModel.user == User.human
