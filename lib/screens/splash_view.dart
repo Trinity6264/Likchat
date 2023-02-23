@@ -53,7 +53,7 @@ class _SplashViewState extends State<SplashView> {
                   ),
                 ),
                 Text(
-                  'Powered by infotess 23/24',
+                  'Powered by infotess 22/23',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: size.width * .04,
