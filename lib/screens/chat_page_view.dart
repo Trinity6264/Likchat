@@ -105,7 +105,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                 tileMode: TileMode.clamp,
               ),
               child: Image.asset(
-                'assets/logo.png',
+                'assets/bg.jpg',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
             create: (context) => ChatCubit(chatRepo: chatRepo)),
       ],
       child: MaterialApp(
-        title: 'LikChat',
+        title: 'Infotess',
         theme: ThemeData(
           primarySwatch: Colors.purple,
         ),
